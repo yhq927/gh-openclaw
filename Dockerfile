@@ -1,5 +1,5 @@
-# 使用 Node.js 20 官方镜像（稳定、Render 支持最好）
-FROM node:20-alpine
+# 使用 Node.js 22 官方镜像（满足 OpenClaw 的版本要求）
+FROM node:22-alpine
 
 # 设置工作目录
 WORKDIR /app
@@ -20,5 +20,5 @@ EXPOSE 8080
 ENV PORT=8080
 ENV OPENCLAW_GATEWAY_PORT=8080
 
-# 启动命令：跳过 init，直接启动网关并指定端口
+# 启动命令：直接启动网关并指定端口
 CMD ["openclaw", "gateway", "start", "--port", "8080"]
