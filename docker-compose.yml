@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  openclaw:
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./config:/app/config
+      - ./memory:/app/memory
+      - ./skills:/app/skills
+    environment:
+      - OPENCLAW_GATEWAY_TOKEN=${OPENCLAW_GATEWAY_TOKEN}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL}
+      - OPENAI_MODEL=${OPENAI_MODEL}
+      - QQ_BOT_APPID=${QQ_BOT_APPID}
+      - QQ_BOT_SECRET=${QQ_BOT_SECRET}
+    restart: always
