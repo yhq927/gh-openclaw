@@ -1,20 +1,20 @@
-FROM node:22-alpine
+# 用官方 OpenClaw 镜像作为基础
+FROM ghcr.io/openclaw-ai/openclaw:latest
 
+# 设置工作目录
 WORKDIR /app
 
-# 基础依赖
-RUN apk add --no-cache git bash
-
-# 安装 OpenClaw（国内镜像）
-RUN npm install -g openclaw@latest --registry=https://registry.npmmirror.com
+# 安装 QQ 渠道插件
 RUN npm install -g @openclaw-china/channels --registry=https://registry.npmmirror.com
 
-# 目录
+# 创建持久化目录
 RUN mkdir -p /app/config /app/memory /app/skills
 
+# 暴露端口
 EXPOSE 8080
 
-CMD ["sh", "-c", "\
-  openclaw init --force --config /app/config/openclaw.json && \
-  openclaw gateway start --config /app/config/openclaw.json \
-"]
+# 设置端口环境变量
+ENV PORT=8080
+
+# 启动命令（用官方推荐的方式启动，自动初始化+监听端口）
+CMD ["openclaw", "gateway", "start", "--port", "8080"]
